@@ -123,8 +123,7 @@ functions:
               application/json: ${file(models/update-todo-model.json)}
     iamRoleStatements:
         - Effect: Allow
-          Action:
-            - dynamodb:Query
+          Action:            
             - dynamodb:UpdateItem
           Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}
         - Effect: Allow
@@ -188,8 +187,7 @@ functions:
           - "xray:PutTelemetryRecords"
         Resource:
           - "*"
-
-
+          
 resources:
   Resources:
     # Add necessary AWS resources. You will need at least the following AWS resources
