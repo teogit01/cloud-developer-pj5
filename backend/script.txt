@@ -1,0 +1,12 @@
+npm install serverless-aws-documentation serverless-reqvalidator-plugin --save-dev
+
+serverless config credentials --provider aws --key __ --secret __ --profile serverless
+
+
+npm install serverless-webpack --save-dev
+npm install serverless-iam-roles-per-function --save-dev
+npm install serverless-plugin-tracing
+
+npm install serverless-webpack --save-dev
+
+npm install typescript@latest
