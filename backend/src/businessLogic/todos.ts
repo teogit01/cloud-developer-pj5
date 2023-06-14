@@ -28,13 +28,13 @@ export const createTodo = async (
 
     const todoId = uuid.v4()
     const createdAt = new Date().toISOString()
-    const s3AttachmentUrl = attachmentUtils.getAttachmentUrl(todoId)
+    //const s3AttachmentUrl = attachmentUtils.getAttachmentUrl(todoId)
     const newItem = {
         userId,
         todoId,
         createdAt,
         done: false,
-        attachmentUrl: s3AttachmentUrl,
+        //attachmentUrl: s3AttachmentUrl,
         ...newTodo
     }
     return await todosAccess.createTodoItem(newItem)
