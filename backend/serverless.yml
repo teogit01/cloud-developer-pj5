@@ -31,7 +31,7 @@ provider:
   environment:
     TODOS_TABLE: empl1-table-${self:provider.stage}
     TODOS_CREATED_AT_INDEX: CreatedAtIndex
-    ATTACHMENT_S3_BUCKET: empl1-s3-${self:provider.stage}
+    ATTACHMENT_S3_BUCKET: empl1-s3-capstone-${self:provider.stage}
     SIGNED_URL_EXPIRATION: 300
     PROJECT_NAME: serverless-todo-app
     INDEX_NAME: ${self:provider.environment.TODOS_CREATED_AT_INDEX}
@@ -187,7 +187,26 @@ functions:
           - "xray:PutTelemetryRecords"
         Resource:
           - "*"
-          
+  
+  #
+  SearchTodos:
+    handler: src/lambda/http/searchTodo.handler
+    events:
+      - http:
+          method: get
+          authorizer: Auth
+          path: search
+          cors: true
+          request:
+            parameters:
+              querystrings:
+                key: true      
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:Query
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}
+
 resources:
   Resources:
     # Add necessary AWS resources. You will need at least the following AWS resources

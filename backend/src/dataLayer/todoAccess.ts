@@ -110,5 +110,23 @@ export class TodosAccess {
         }
         logger.info('--Param ne--', params)
         await this.docClient.update(params).promise()
+    }
+    
+    // Search Todo
+    async searchTodo(key: string, userId: string): Promise<TodoItem[]> {      
+      const params = {
+        TableName: this.todosTable,
+        FilterExpression: 'contains(#key, :task_name)',
+        KeyConditionExpression: 'userId = :userId',
+        ExpressionAttributeNames: {
+          '#key': 'name'
+        },
+        ExpressionAttributeValues: {
+          ':task_name': key,
+          ':userId': userId
+        }
       }
-}
+      const data = await this.docClient.query(params).promise()
+      return data.Items as TodoItem[]         
+    }  
+  }

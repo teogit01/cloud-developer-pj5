@@ -60,3 +60,8 @@ export async function createAttachmentUrl(
     todosAccess.updateTodoAttachmentUrl(userId, todoId)
     return attachmentUtils.getUploadUrl(todoId)
 }
+
+// Search Todo
+export async function searchTodo(key: string, userId: string) {
+    return await todosAccess.searchTodo(key, userId)
+}
